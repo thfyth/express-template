@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const { register } = require("../controller/user");
-/* GET users listing. */
-router.post("/register", register);
+const { registerValidator } = require("../middware/Validator");
+router.post("/register", registerValidator, register);
 
 module.exports = router;
