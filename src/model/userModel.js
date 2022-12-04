@@ -11,6 +11,7 @@ const UserModel = new Schema({
     type: String,
     required: true,
     set: (value) => md5(value),
+    select: false,
   },
   ...Time,
 });
