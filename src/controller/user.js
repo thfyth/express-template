@@ -4,7 +4,7 @@ const { createToken, verifyToken } = require("../utils/jwt");
 exports.register = async function (req, res) {
   console.log(req.body);
 
-  const r = await new User(req.body).save();
+  const data = await new User(req.body).save();
   res.status(200).json({
     code: 200,
     data,
