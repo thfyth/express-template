@@ -13,19 +13,18 @@ module.exports = {
     var token = req.headers.authorization;
     token = token ? token.split("Bearer ")[1] : null;
     if (!token) {
-      res.status(401).json({
+      return res.status(401).json({
         code: 401,
         msg: "登陆已过期",
         data: null,
       });
     }
     try {
-      const userinfo = await verify(token, key);
-      console.log(userinfo);
+      req.user = await verify(token, key);
       next();
     } catch (error) {
       console.log(error);
-      res.status(401).json({
+      return res.status(401).json({
         code: 401,
         msg: "无效token",
         data: null,

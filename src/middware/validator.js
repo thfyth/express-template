@@ -23,4 +23,25 @@ module.exports = {
     body("username").notEmpty().withMessage("用户名不能为空").bail(),
     body("password").notEmpty().withMessage("密码不能为空").bail(),
   ]),
+  updateValidator: errorBack([
+    body("username").custom(async (val) => {
+      console.log(val);
+      const cb = await User.findOne({ username: val });
+      console.log(cb);
+      if (cb) {
+        return Promise.reject("该用户名已存在，请修改你的名称!");
+      }
+    }),
+    body("phone").custom(async (phone) => {
+      console.log(phone);
+      const cb = await User.findOne({ phone });
+      if (cb) {
+        return Promise.reject("该手机号已存在!");
+      }
+    }),
+  ]),
+  videoValidator: errorBack([
+    body("title").notEmpty().withMessage("视频名称不能为空").bail(),
+    body("vodVideoId").notEmpty().withMessage("视频ID不能为空").bail(),
+  ]),
 };

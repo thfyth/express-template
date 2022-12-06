@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
-const { UserModel } = require("./userModel");
+const { UserSchema } = require("./userModel");
+const { mongodbUrl } = require("../../config/config.default");
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/thfyth");
+  await mongoose.connect(mongodbUrl);
 }
 main()
   .then((res) => {
@@ -13,5 +14,5 @@ main()
 // main();
 
 module.exports = {
-  User: mongoose.model("User", UserModel),
+  User: mongoose.model("User", UserSchema),
 };

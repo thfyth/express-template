@@ -1,6 +1,9 @@
 // const token = require("jsonwebtoken");
+const fs = require("fs");
 const { User } = require("../model/index");
-const { createToken, verifyToken } = require("../utils/jwt");
+const { createToken } = require("../utils/jwt");
+const { promisify } = require("util");
+const rename = promisify(fs.rename);
 exports.register = async function (req, res) {
   console.log(req.body);
 
@@ -47,4 +50,22 @@ exports.login = async function (req, res) {
 
 exports.list = async function (req, res) {
   res.send("list");
+};
+
+exports.update = async function (req, res) {
+  const { _id } = req.user.userinfo;
+  // console.log(req.userinfo._id, "-------", _id, req.body);
+  const back = await User.findByIdAndUpdate(_id, req.body, { new: true });
+  res.send(back);
+};
+
+exports.uploadHeaderImage = async function (req, res) {
+  // upload()
+  console.log(req.file);
+  const { originalname, filename } = req.file;
+  const length = originalname.split(".").length;
+  const postfix = originalname.split(".")[length - 1];
+  console.log(length, filename + "." + postfix);
+  res.send("上传文件");
+  rename("public/file/" + filename, "public/file/" + filename + "." + postfix);
 };
