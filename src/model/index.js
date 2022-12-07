@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const { UserSchema } = require("./userModel");
+const { VideoSchema } = require("./videoModel");
+const { SubscribeSchema } = require("./subscribeModel");
 const { mongodbUrl } = require("../../config/config.default");
 async function main() {
   await mongoose.connect(mongodbUrl);
@@ -15,4 +17,6 @@ main()
 
 module.exports = {
   User: mongoose.model("User", UserSchema),
+  Video: mongoose.model("Video", VideoSchema),
+  Subscribe: mongoose.model("Video", SubscribeSchema),
 };

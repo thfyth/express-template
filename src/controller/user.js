@@ -69,3 +69,22 @@ exports.uploadHeaderImage = async function (req, res) {
   res.send("上传文件");
   rename("public/file/" + filename, "public/file/" + filename + "." + postfix);
 };
+// 用户关注
+exports.subscribe = async function (req, res) {
+  const userId = req.user.userinfo._id;
+  const id = req.params.id;
+  if (userId && id) {
+    if (userId === id) {
+      return res.status(200).json({
+        code: 500,
+        msg: "不能关注自己",
+        data: null,
+      });
+    }
+  }
+  res.status(200).json({
+    code: 500,
+    msg: "请登陆及传入关注用户id",
+    data: null,
+  });
+};

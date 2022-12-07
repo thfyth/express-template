@@ -23,7 +23,6 @@ const VideoSchema = new Schema({
   },
   cover: {
     type: String,
-    required: true,
   },
   ...Time,
 });
